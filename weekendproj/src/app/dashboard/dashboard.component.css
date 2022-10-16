@@ -1,0 +1,14 @@
+.bg-image {
+  background-image: url("src/assets/img/bg1-bc.jpeg")  ;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+.btn-xl {
+  padding: 10px 20px;
+  font-size: 70px;
+  border-radius: 10px;
+  width:60%;
+}
