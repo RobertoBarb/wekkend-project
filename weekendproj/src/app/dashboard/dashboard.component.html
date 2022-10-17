@@ -6,7 +6,7 @@
 <br>
 <br>
 <div class="text-center">
-  <button type="button" class="btn btn-info btn-xl"><i class="bi bi-envelope-paper"></i>Delegate</button>
+  <button (click)="openPopup()" type="button" class="btn btn-info btn-xl"><i class="bi bi-envelope-paper"></i>Delegate</button>
 </div>
 <br>
 <br>
@@ -22,6 +22,40 @@
 <br>
 <br>
 <div class="text-center">
-  <button type="button" class="btn btn-success btn-xl"><i class="bi bi-display"></i>Recent Votes</button>
+  <button  type="button" class="btn btn-success btn-xl"><i class="bi bi-display"></i>Recent Votes</button>
 </div>
+</div>
+
+
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Delegate to Voter </h4>
+      </div>
+      <div class="modal-body">
+        <form class="">
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control rounded-3" id="floatingInput" placeholder="Enter the voter address to">
+            <label for="floatingInput">Voter address</label>
+          </div>
+
+          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Send</button>
+          <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger"
+                    (click)="closePopup()">
+              Close
+            </button>
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
 </div>
