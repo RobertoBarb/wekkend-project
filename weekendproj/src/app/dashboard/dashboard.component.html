@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class=" bg-image">
 <div class="text-center">
-  <button type="button" class="btn btn-primary btn-xl"><i class="bi bi-cast"></i>Cast Vote</button>
+  <button type="button" class="btn btn-primary btn-xl" (click)="castVotes()"><i class="bi bi-cast"></i>Cast Vote</button>
 </div>
 <br>
 <br>
@@ -11,12 +11,12 @@
 <br>
 <br>
 <div class="text-center">
-  <button type="button" class="btn btn-dark btn-xl "><i class="bi bi-dice-6-fill"></i>Query Vote Result</button>
+  <button type="button" class="btn btn-dark btn-xl " (click)="queryVotes()"><i class="bi bi-dice-6-fill"></i>Query Vote Result</button>
 </div>
 <br>
 <br>
 <div class="text-center">
-  <button type="button" class="btn btn-warning btn-xl"><i class="bi bi-currency-exchange"></i>
+  <button type="button" class="btn btn-warning btn-xl"(click)="request()"><i class="bi bi-currency-exchange"></i>
     Mint Vote Tokens</button>
 </div>
 <br>
@@ -24,6 +24,18 @@
 <div class="text-center">
   <button  type="button" class="btn btn-success btn-xl"><i class="bi bi-display"></i>Recent Votes</button>
 </div>
+</div>
+
+<form [formGroup]="claimForm">
+  <input type="text" placeholder="your name" name="name">
+  <input type="id" placeholder="your id" name="id">
+</form>
+
+<div>
+  <p>Connected to the token at address: {{tokenContractAddress}}</p>
+  <p>Total supply of the token is : {{tokenTotalSupply}} ETH</p>
+  <p>This is wallet: {{walletAddress}}</p>
+  <p>This is balance: {{etherBalance}}</p>
 </div>
 
 
@@ -40,11 +52,11 @@
       <div class="modal-body">
         <form class="">
           <div class="form-floating mb-3">
-            <input type="email" class="form-control rounded-3" id="floatingInput" placeholder="Enter the voter address to">
+            <input class="form-control rounded-3" id="floatingInput" placeholder="Enter the voter address to">
             <label for="floatingInput">Voter address</label>
           </div>
 
-          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Send</button>
+          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" (click)="delegate(this)">Send</button>
           <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger"

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { VoteModalComponent } from './vote-modal/vote-modal.component';
+//import { VoteModalComponent } from './vote-modal/vote-modal.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
