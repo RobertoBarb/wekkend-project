@@ -1,12 +1,25 @@
 <app-navbar></app-navbar>
 <div class=" bg-image">
 <div class="text-center">
-  <button type="button" class="btn btn-primary btn-xl" (click)="castVotes()"><i class="bi bi-cast"></i>Cast Vote</button>
+  <button type="button" class="btn btn-primary btn-xl" (click)="formPopup('vote-form')"><i class="bi bi-cast"></i>Cast Vote</button>
+</div>
+<div class="text-center fill-form bg-dark" id="vote-form">
+  <form [formGroup]="voteForm">
+    <input type="text" placeholder="proposal index" name="proposal">
+    <input type="number" placeholder="amount" name="amount">
+  </form>
+  <button class="btn btn-primary my-2" (click)="castVotes()">Vote</button>
 </div>
 <br>
 <br>
 <div class="text-center">
-  <button (click)="openPopup()" type="button" class="btn btn-info btn-xl"><i class="bi bi-envelope-paper"></i>Delegate</button>
+  <button (click)="formPopup('delegate-form')" type="button" class="btn btn-info btn-xl"><i class="bi bi-envelope-paper"></i>Delegate</button>
+</div>
+<div class="text-center fill-form bg-dark" id="delegate-form">
+  <form [formGroup]="delegateForm">
+    <input type="text" placeholder="address" name="address">
+  </form>
+  <button class="btn btn-primary my-2" (click)="delegate()">Delegate</button>
 </div>
 <br>
 <br>
@@ -16,58 +29,18 @@
 <br>
 <br>
 <div class="text-center">
-  <button type="button" class="btn btn-warning btn-xl"(click)="request()"><i class="bi bi-currency-exchange"></i>
+  <button type="button" class="btn btn-warning btn-xl"(click)="formPopup('mint-form')"><i class="bi bi-currency-exchange"></i>
     Mint Vote Tokens</button>
 </div>
-<br>
-<br>
-<div class="text-center">
-  <button  type="button" class="btn btn-success btn-xl"><i class="bi bi-display"></i>Recent Votes</button>
-</div>
-</div>
-
-<form [formGroup]="claimForm">
-  <input type="text" placeholder="your name" name="name">
-  <input type="id" placeholder="your id" name="id">
-</form>
-
-<div>
-  <p>Connected to the token at address: {{tokenContractAddress}}</p>
-  <p>Total supply of the token is : {{tokenTotalSupply}} ETH</p>
-  <p>This is wallet: {{walletAddress}}</p>
-  <p>This is balance: {{etherBalance}}</p>
+<div class="text-center fill-form bg-dark" id="mint-form">
+  <form [formGroup]="mintForm">
+    <input type="text" placeholder="address" name="address">
+    <input type="number" placeholder="amount" name="amount">
+  </form>
+  <button class="btn btn-primary my-2" (click)="mint()">Mint tokens</button>
 </div>
 
-
-<div
-  class="modal"
-  tabindex="-1"
-  role="dialog"
-  [ngStyle]="{'display':displayStyle}">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Delegate to Voter </h4>
-      </div>
-      <div class="modal-body">
-        <form class="">
-          <div class="form-floating mb-3">
-            <input class="form-control rounded-3" id="floatingInput" placeholder="Enter the voter address to">
-            <label for="floatingInput">Voter address</label>
-          </div>
-
-          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" (click)="delegate(this)">Send</button>
-          <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger"
-                    (click)="closePopup()">
-              Close
-            </button>
-          </div>
-        </form>
-
-      </div>
-
-    </div>
-  </div>
+<div class="text-center mt-3 bg-light pb-3">
+  <h1> API Result</h1>
+  <p>Function response: {{apiResponse}}</p>
 </div>

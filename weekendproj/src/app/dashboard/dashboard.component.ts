@@ -9,90 +9,86 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  tokenContractAddress: string;
-  tokenTotalSupply: string;
-  walletAddress: string;
   wallet: ethers.Wallet | undefined;
-  etherBalance: string;
   provider: ethers.providers.BaseProvider;
+  apiResponse: string;
 
   claimForm = this.fb.group({
     name: [''],
     id: [''],
   })
 
+  voteForm = this.fb.group({
+    proposal: [''],
+    amount: 0
+  })
+
+  mintForm = this.fb.group({
+    address: [''],
+    amount: 0
+  })
+
+  delegateForm = this.fb.group({
+    address: [''],
+  })
+
   constructor(private apiService: ApiService, private fb: FormBuilder) { 
-    this.tokenTotalSupply ="Loading...";
-    this.walletAddress = 'Loading...';
-    this.etherBalance = "Loading...";
-    this.tokenContractAddress = "";
+    this.apiResponse = "Loading ...";
     this.provider = ethers.getDefaultProvider("goerli");
   }
 
   ngOnInit(): void {
-    this.apiService.getContractAddress().subscribe((response) => {
-      console.log({response});
-      this.tokenContractAddress = response.result;
-    })
-    this.apiService.getTotalSupply().subscribe((response) => {
-      this.tokenTotalSupply = response.result;
-    })
     const wallet = ethers.Wallet.createRandom();
-    this.walletAddress = wallet.address;
-    console.log(this.walletAddress);
-    this.provider.getBalance(this.walletAddress).then((balanceBN) => {
-      this.etherBalance = ethers.utils.formatEther(balanceBN) + "Eth";
-    });
   }
   displayStyle = "none";
 
-  openPopup() {
-    this.displayStyle = "block";
-  }
-  closePopup() {
-    this.displayStyle = "none";
-  }
-
-  request(){
-    const body = {
-      name: this.claimForm.value.name, 
-      id: this.claimForm.value.id}
-    this.apiService.requestTokens(body).subscribe((response) => {
-      console.log({response});
-    })
+  formPopup(id : string){
+    const el = document.getElementById(id);
+    if (el != null ) {
+      if (el.style.display === 'none') {
+        el.style.display = 'block';
+      } else {
+        el.style.display = 'none';
+      }
+    }
   }
 
   castVotes(){
     const body = {
-      proposalIndex: 0,
-      amount: 1,
+      proposal: this.voteForm.value.proposal, 
+      amount: this.voteForm.value.amount?.toString()
     }
     this.apiService.castVotes(body).subscribe((response) => {
       console.log({response});
+      this.apiResponse = response.toString();
     })
   }
 
-  delegate(param : any){
-    console.log("OOOOOOOOO")
+  delegate(){
     const body = {
-      address: "0x16A7D3d770d3EEB0c5341e5A43F40245DA903eA6",
+      name: this.delegateForm.value.address, 
     }
-    console.log(param);
+    this.apiService.delegate(body).subscribe((response) => {
+      console.log({response});
+      this.apiResponse = response.toString();
+    })
   }
   
   queryVotes(){
     this.apiService.queryResults().subscribe((response) => {
       console.log({response});
+      this.apiResponse = response.toString();
     })
   }
 
   mint(){
     const body = {
-      address: "0x004aFB87DBA1C09Cd0F3Db2ECb459E07D2b04a78",
-      amount: "1",
+      address: this.mintForm.value.address, 
+      amount: this.mintForm.value.amount?.toString()
     }
     this.apiService.mint(body).subscribe((response) => {
       console.log({response});
+      this.apiResponse = response.toString();
     })
   }
 

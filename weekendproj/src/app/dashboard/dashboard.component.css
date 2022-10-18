@@ -12,3 +12,25 @@
   border-radius: 10px;
   width:60%;
 }
+
+.fill-form{
+  width:50%; 
+  margin: 0 auto;
+  padding-top: .5em;
+}
+
+#mint-form{
+  display: none;
+}
+
+#delegate-form{
+  display:none;
+}
+
+#vote-form{
+  display:none;
+}
+
+h1 {
+  background-color: blanchedalmond;
+}
